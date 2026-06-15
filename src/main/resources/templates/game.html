@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .nav {
+            text-align: center;
+        }
+        .innerBox{
+            padding: 0%;
+            margin: 0%;
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border:solid 1px black ;
+            align-content: center;
+            text-align: center;
+            border-radius: 10%;
+            margin: 2px;
+        }
+        .outerBox {
+            text-align: center;
+        }
+
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+
+
+    <script th:inline="javascript">
+
+        if([[${over}]] == true) {
+            window.location.href = "/";
+        }
+        
+        const starttime = Date.now();
+
+        let elapsedTime;
+        
+        setInterval( () => {
+            const timeElapsed =  Math.floor(Date.now()/1000) - [[${time}]];
+            
+            document.getElementById("timerDisplay").textContent = timeElapsed;
+
+        }, 1000);
+        
+        
+        
+    </script>
+
+</head>
+<body>
+
+
+
+    <nav class="nav">
+        <span>
+            <b>
+                SUDOKU
+            </b>
+        </span>
+        <hr>
+    </nav>
+    
+    <br>
+
+    <div>
+        <p>Time Elapsed : <span id="timerDisplay" th:text="${elapsed}"></span></p>
+        <p>life left : <span th:text="${life}"></span></p>
+    </div>
+    <br>
+
+    <form th:action="@{/game/move}" method="post">
+
+        
+        <button type="submit" hidden></button>
+        <div class="outerBox">
+            <div th:each="row, rowStat : ${puzzle}">
+                <span th:each="cell, colStat : ${row}">
+                    <span class="innerBox" th:if="${cell != 0}" th:text="${cell}"></span>
+                    <input type="number" class="innerBox" th:unless="${cell != 0}" maxlength="1" min="1" max="9" th:name="${rowStat.index + '-' + colStat.index}" />
+                </span>
+            </div>
+        </div>
+    </form>
+
+    
+    <br>
+    <hr>
+    <br>
+
+</body>
+</html>

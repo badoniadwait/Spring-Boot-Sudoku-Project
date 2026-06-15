@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sudoku App</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .container {
+        text-align: center;
+        background: rgba(255,255,255,0.1);
+        padding: 40px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        width: 350px;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .play {
+        background: #00c9a7;
+        color: white;
+    }
+
+    .play:hover {
+        background: #00a78b;
+    }
+
+    .leaderboard {
+        background: #ffd166;
+        color: black;
+    }
+
+    .leaderboard:hover {
+        background: #e6bc5c;
+    }
+
+    .log {
+        background: transparent;
+        border: 1px solid white;
+        color: white;
+    }
+
+    .about:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+    footer {
+        margin-top: 20px;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Sudoku</h1>
+    <p>Challenge your brain with classic Sudoku puzzles</p>
+
+    <form th:action="@{/play}" method="post">
+        <button class="btn play" type="submit">Play Game</button>
+    </form>
+    <button class="btn leaderboard" onclick="location.href='/leaderboard'">Leaderboard</button>
+
+    <button sec:authorize="isAnonymous()"
+        class="btn log"
+        onclick="location.href='/login'">
+        LOGIN
+    </button>
+
+    <form sec:authorize="isAuthenticated()"
+        th:action="@{/logout}"
+        method="post">
+        <button class="btn log" type="submit">
+            LOGOUT
+        </button>
+    </form>
+
+    <footer>
+        Built with Spring Boot
+    </footer>
+</div>
+
+</body>
+</html>
