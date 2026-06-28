@@ -11,7 +11,7 @@ A full-stack Sudoku web application built with Java, Spring Boot, MongoDB Atlas,
 * Interactive Sudoku Board
 * Score Tracking System
 * Leaderboard Ranking
-* MongoDB Atlas Integration
+* MongoDB Integration
 * Responsive User Interface
 * Session Management
 
@@ -64,7 +64,7 @@ src/
 
 * Java 17 or later
 * Maven
-* MongoDB Atlas Account
+* MongoDB Atlas Account or local MongoDB
 
 ### Installation
 
@@ -80,20 +80,16 @@ git clone https://github.com/badoniadwait/Spring-Boot-Sudoku-Project.git
 cd Spring-Boot-Sudoku-Project
 ```
 
-3. Configure MongoDB Atlas connection in `application.properties`
-
-```properties
-spring.data.mongodb.uri=YOUR_MONGODB_CONNECTION_STRING
-```
-
-4. Run the application
+3. Run the application
 
 ```bash
 mvn spring-boot:run
 ```
 
-5. Open your browser and visit
+4. Open your browser and visit
 
 ```text
 http://localhost:8080
 ```
+
+

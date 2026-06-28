@@ -42,12 +42,12 @@ public class Game {
             }
         }
         finishTime = System.currentTimeMillis()/1000 - time;
-
+        
         updateWinsDB();
 
         return over = true;
     }
-
+    
     private void updateWinsDB() {
         controller.updateWins();
     }
@@ -59,17 +59,17 @@ public class Game {
         over = false;
         puzzle = copyBoard(finalBoard);
 
-        for(int i = 0;i < 1; i++) {
+        for(int i = 0;i < 60; i++) {
             int a = random.nextInt(1,9);
             int b = random.nextInt(1,9);
             puzzle.get(a).set(b, 0);
 
         }
     }
-
+    
     private List<List<Integer>> copyBoard(List<List<Integer>> board){
         List<List<Integer>> newBoard = new ArrayList<>();
-
+        
         for(List<Integer> row : board){
             newBoard.add(new ArrayList<>(row));
         }
@@ -94,7 +94,7 @@ public class Game {
         return completeBoard;
         
     }
-
+    
     private List<List<Integer>> generateBoard(List<List<Integer>> board, int i, int j, int cnt) {
         if(checkComplete(cnt)){
 
@@ -102,7 +102,7 @@ public class Game {
             return board;
         }
         if(!finalBoard.isEmpty()) return finalBoard;
-
+        
         if(j >= 9) {
             i++;
             j = 0;
@@ -125,13 +125,13 @@ public class Game {
         return finalBoard;
         
     }
-
+    
     private boolean checkComplete(int cnt) {
         return cnt == 81;
     }
 
     private boolean isValid(List<List<Integer>> board, int i, int j, int value) {
-
+        
         if(board.get(i).get(j) != 0) return false;
 
         for (int ind = 0; ind < 9; ind++) {
@@ -144,35 +144,38 @@ public class Game {
         int startCol = (j/3)*3;
 
         for(int r = startRow; r < startRow+3; r++) {
-
+            
             for(int c = startCol; c < startCol+3; c++)
-            if(board.get(r).get(c) == value)
-            return false;
-        }
-        return true;
+                if(board.get(r).get(c) == value)
+                    return false;
     }
-
+    return true;
+    }
+    
     private void putValue(List<List<Integer>> board, int i, int j, int value) {
         board.get(i).set(j, value);
     }
-
     
-
+    
+    
     
     private List<Integer> shuffIntegers() {
-		List<Integer> shuffIntegers = new ArrayList<>();
+        List<Integer> shuffIntegers = new ArrayList<>();
 
         for(int i = 1;i<10;i++){
             shuffIntegers.add(i);
         }
-
+        
         Collections.shuffle(shuffIntegers);
-
+        
         return shuffIntegers;
-
+        
 	}
-
+    
     public long getLife() {
+        if(!over && life == 0) {
+            finishTime = System.currentTimeMillis()/1000 - time;
+        } 
         return life;
     }
     public void setOver() {

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sudoku.game.service.Game;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class GameController {
 
@@ -32,6 +34,7 @@ public class GameController {
     @GetMapping("/game")
     public String game(Model model) {
 
+        
         if(board == null) {
             board = sudoku.getCompleteBoard();
             puzzle = sudoku.getPuzzle();
@@ -79,14 +82,16 @@ public class GameController {
     }
 
     @GetMapping("/game/status") 
-    public String status(Model model) {
+    public String status(Model model, HttpSession session) {
 
         model.addAttribute("life", sudoku.getLife());
         model.addAttribute("time", sudoku.getFinishTime());
+
         if(sudoku.getLife() == 0) {
+            sudoku.resetBoard();
             return "status";
         }
-
+        
         if(!sudoku.checkOver()) {
             return "redirect:/game";
         }
